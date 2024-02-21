@@ -1,0 +1,1 @@
+CREATE TABLE `bus_db`.`administrators` (`AdminID` INT NOT NULL AUTO_INCREMENT , `Initials` VARCHAR(100) NOT NULL , `Surname` VARCHAR(100) NOT NULL , `Password` VARCHAR(100) NOT NULL , `Email` VARCHAR(100) NOT NULL , PRIMARY KEY (`AdminID`)) ENGINE = InnoDB; 

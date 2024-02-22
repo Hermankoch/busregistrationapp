@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/bootstrap/css/bootstrap.min.css">
     <!-- icons -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/icons/fontawesome/css/all.min.css">
+
     <?php
     session_start();
     if (!isset($_SESSION['user_type'])){

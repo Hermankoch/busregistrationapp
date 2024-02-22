@@ -2,8 +2,8 @@
 include_once ('../config/config.php');
 include_once ('dbconn.php');
 include_once ('db_functions.php');
-require_once (ROOT_PATH.'classes/MyPHPMailer.php');
-use classes\MyPHPMailer;
+//require_once (ROOT_PATH.'classes/MyPHPMailer.php');
+//use classes\MyPHPMailer;
 
 session_start();
 

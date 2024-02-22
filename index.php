@@ -30,6 +30,11 @@
                 <div class="col-md-4 col-sm-4">
                     <img src="assets/images/orange_bus_01.png" alt="bus" class="img-fluid">
                 </div>
+                <div class="text-center pb-3">
+                    <a href="https://github.com/Hermankoch/busregistrationapp" target="_blank" class="btn btn-outline-primary align-self-center fs-5">
+                        Github <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
 
             </div>
 

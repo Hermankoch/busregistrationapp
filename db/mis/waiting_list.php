@@ -8,9 +8,9 @@ function getWaitingList ()
     header('Content-Type: application/json');
     header('Access-Control-Allow-Origin: *');
     try {
+        //$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = 'SELECT * FROM waitinglist, learners WHERE waitinglist.LearnerID = learners.LearnerID ORDER BY ListDate';
-        $statement = $db->prepare($query);
-        $statement->execute();
+        $statement = $db->query($query);
         $waitingList = $statement->fetchAll(PDO::FETCH_ASSOC);
         $statement->closeCursor();
         return json_encode([

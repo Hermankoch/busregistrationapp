@@ -1,8 +1,8 @@
 <!-- Config -->
-<?php include_once('../config/config.php');?>
+<?php include_once('../config/config.php'); ?>
 
 <!-- Header -->
-<?php include_once(ROOT_PATH . 'components/header.php'); ?>
+<?php include_once(ROOT_PATH . 'components/header.php');?>
 
 <!-- Security -->
 <?php

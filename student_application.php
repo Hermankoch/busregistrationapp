@@ -14,9 +14,6 @@ if (!isset($_SESSION['user_id'])){
 } ?>
 
 <div class="container py-4">
-
-
-
     <div class="row g-0 align-items-center justify-content-center card p-4 shadow">
         <div class="col-lg-6 mb-5 mb-lg-0">
             <p class="text-secondary"></p>
@@ -28,10 +25,8 @@ if (!isset($_SESSION['user_id'])){
             <form action="db/register_student.php" method="POST">
                 <h1 class="text-center">Student bus application 2024</h1>
                 <h2 class="text-secondary text-center">Student personal details:</h2>
-
                 <div class="row">
                     <div class="col-md-6 mb-4">
-
                         <div class="form-outline">
                             <input required type="text" name="name" id="name" class="form-control" placeholder="John"
                                    value="<?php echo $_SESSION['old']['name'] ?? ''; ?>"/>

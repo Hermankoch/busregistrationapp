@@ -1,21 +1,28 @@
 "use strict";
-let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+//let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+let url = window.location.protocol + "//" + window.location.host + "/";
+
 if (window.addEventListener) {
     window.addEventListener("load", setup, false);
 } else if (window.attachEvent) {
     window.attachEvent("onload", setup);
 }
-function setup(){
-    let learners = fetchLearners();
-    dataTable(learners);
+async function setup() {
+    try {
+        let learners = await fetchLearners();
+        dataTable(learners); // This will now wait for fetchLearners to complete
+    } catch (error) {
+        console.error('Setup Error:', error);
+        // Handle setup errors, possibly update UI to inform the user
+    }
 }
 
 function pad(number) {
     return number < 10 ? '0' + number : number;
 }
 
-function refreshTable() {
-    let learners = fetchLearners();
+async function refreshTable() {
+    let learners = await fetchLearners();
     $('#learner-report').DataTable().clear().rows.add(learners).draw();
     let date = document.getElementById('date');
     let now = new Date();
@@ -107,23 +114,23 @@ function dataTable(learners) {
             .draw();
     });
 }
-
-function fetchLearners() {
-    let learners;
-    $.ajax({
-        url: url +'/db/mis/bus_learners.php',
+async function fetchLearners() {
+    return $.ajax({
+        url: url + 'db/mis/bus_learners.php',
+        cache: false,
         type: 'GET',
-        dataType: 'json',
-        async: false,
-        success: function (data) {
-            learners = data['data'];
-        },
-        error: function (error) {
-            console.log(error);
+        dataType: 'json', // Specifies expected response datatype
+        headers: {
+            "Accept": "application/json", // Explicitly define Accept header
         }
+    }).then(data => {
+        return data['data']; // Resolve the promise with the data for learners
+    }).fail((jqXHR, textStatus, errorThrown) => {
+        console.log("AJAX Error:", textStatus, errorThrown);
+        throw new Error('Failed to fetch learners'); // Reject the promise if there's an error
     });
-    return learners;
 }
+
 
 function removeLearnerRoute(learnerId, column, busStopId) {
     $.ajax({
@@ -137,6 +144,9 @@ function removeLearnerRoute(learnerId, column, busStopId) {
             'BusStopID': busStopId,
         }),
         dataType: 'json',
+        headers: {
+            "Accept": "application/json", // Explicitly define Accept header
+        },
         async: false,
         success: function (data) {
             alert(data['message']);

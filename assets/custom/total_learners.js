@@ -1,5 +1,7 @@
 "use strict";
-let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+//let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+let url = window.location.protocol + "//" + window.location.host + "/";
+
 if (window.addEventListener) {
     window.addEventListener("load", setup, false);
 } else if (window.attachEvent) {
@@ -39,8 +41,12 @@ function fetchTotalLearners() {
     $.ajax({
         url: url + '/db/mis/total_learners.php',
         type: 'GET',
+        cache: false,
         dataType: 'json',
         async: false,
+        headers: {
+            "Accept": "application/json", // Explicitly define Accept header
+        },
         success: function (data) {
             totalLearners = data['data'];
         },

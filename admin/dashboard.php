@@ -16,6 +16,7 @@ if ($_SESSION['user_type'] !== 'admin'){
 }
 ?>
 
+
 <link href="<?php echo BASE_URL; ?>assets/datatables/datatables.min.css" rel="stylesheet">
 <script src="<?php echo BASE_URL; ?>assets/datatables/datatables.min.js"></script>
 

@@ -1,5 +1,6 @@
 "use strict";
-let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+//let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+let url = window.location.protocol + "//" + window.location.host + "/";
 if (window.addEventListener) {
     window.addEventListener("load", setup, false);
 } else if (window.attachEvent) {
@@ -58,9 +59,13 @@ function dataTable(seatInfo) {
 function fetchAvailableSeats(){
     let seatInfo;
     $.ajax({
+        cache: false,
         url: url +'/db/mis/bus_utilization.php',
         type: 'GET',
         dataType: 'json',
+        headers: {
+            "Accept": "application/json", // Explicitly define Accept header
+        },
         async: false,
         success: function (data) {
             seatInfo = data['data'];

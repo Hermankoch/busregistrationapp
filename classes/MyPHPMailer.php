@@ -1,13 +1,17 @@
 <?php
 
 namespace classes;
-require __DIR__ . '/../packages/phpmailer/src/PHPMailer.php';
-require __DIR__ .'/../packages/phpmailer/src/SMTP.php';
-require __DIR__ .'/../packages/phpmailer/src/Exception.php';
-use PHPMailer\PHPMailer\PHPMailer;
+//require __DIR__ . '/../packages/phpmailer/src/PHPMailer.php';
+//require __DIR__ .'/../packages/phpmailer/src/SMTP.php';
+//require __DIR__ .'/../packages/phpmailer/src/Exception.php';
+
+require ROOT_PATH . 'packages/PHPMailer/src/SMTP.php';
+require ROOT_PATH . 'packages/PHPMailer/src/Exception.php';
+require ROOT_PATH . 'packages/PHPMailer/src/PHPMailer.php';
+
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
+use PHPMailer\PHPMailer\PHPMailer;
 
 class MyPHPMailer extends PHPMailer
 {

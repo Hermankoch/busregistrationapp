@@ -13,15 +13,15 @@ function checkAvailableSeats($learnerArr)
         $column = 'SeatsForPickup';
     }
     // 1A to 1 and cast to int
-    $busRouteId = (int)substr($learnerArr['BusStopID'],0,1);
+    $busRouteId = (int)(substr($learnerArr['BusStopID'],0,1));
     $query = 'SELECT * FROM availableseats WHERE BusRouteID = :busRouteId';
     $statement = $db->prepare($query);
     $statement->bindValue(':busRouteId', $busRouteId);
     $statement->execute();
     $availableSeats = $statement->fetch(PDO::FETCH_ASSOC);
     $statement->closeCursor();
-    if (!$availableSeats) {
-        throw new Exception('No data found for the given BusStopID');
+    if(array_key_exists($column, $availableSeats) === false){
+        throw new Exception('No available seats for the given BusStopID');
     }
     if ($availableSeats[$column] === 0) {
         throw new Exception('No available seats for the given BusStopID');
@@ -50,6 +50,7 @@ function moveLearner($learnerArr)
     try {
         // Check if there is space
         checkAvailableSeats($learnerArr);
+        //throw new Exception(json_encode($learnerArr));
         // -1 from available seats
         updateAvailableSeats($learnerArr);
         // Remove from waiting list
@@ -101,13 +102,13 @@ function updateAvailableSeats($learnerArr)
     }
     // 1A to 1 and cast to int
     $busRouteId = (int)$learnerArr['BusStopID'][0];
-    $query = 'UPDATE availableseats SET ' . $column . ' = ' . $column.' -1 WHERE BusRouteID = :busRouteId';
+    $query = 'UPDATE availableseats SET ' . $column . ' = ' . $column.' -1 WHERE BusRouteID = :busRouteId AND ' . $column . ' > 0';
     $statement = $db->prepare($query);
     $statement->bindValue(':busRouteId', $busRouteId);
     $statement->execute();
     $statement->closeCursor();
     if ($statement->rowCount() === 0) {
-        throw new Exception('No data found for the given BusStopID');
+        throw new Exception('No available seats for the given BusStopID');
     }
 }
 

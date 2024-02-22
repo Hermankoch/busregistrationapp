@@ -1,5 +1,6 @@
 "use strict";
-let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+//let url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
+let url = window.location.protocol + "//" + window.location.host + "/";
 if (window.addEventListener) {
     window.addEventListener("load", setup, false);
 } else if (window.attachEvent) {
@@ -18,9 +19,13 @@ function refreshTable() {
 function fetchWaitingList() {
     let waitingList;
     $.ajax({
-        url: url + '/db/mis/waiting_list.php',
+        cache: false,
+        url: url + 'db/mis/waiting_list.php',
         type: 'GET',
         dataType: 'json',
+        headers: {
+            "Accept": "application/json", // Explicitly define Accept header
+        },
         async: false,
         success: function (data) {
             waitingList = data['data'];
@@ -100,10 +105,13 @@ function dataTable(waitingList) {
 
 function moveLearner(rowData){
     $.ajax({
-        url: 'http://localhost/onlinebusregistration/db/mis/move_learner.php',
+        url: url + 'db/mis/move_learner.php',
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify(rowData),
+        headers: {
+            "Accept": "application/json", // Explicitly define Accept header
+        },
         success: function (data) {
             alert(data['message']);
         },

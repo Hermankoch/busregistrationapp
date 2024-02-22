@@ -29,7 +29,11 @@ $web_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', $relative_path);
 $project_root = dirname($web_path);
 
 // Ensure it starts and ends with a /
-$project_root = '/' . trim($project_root, '/');
+if(env === 'dev') {
+    $project_root = '/' . trim($project_root, '/') . '/';
+} else {
+    $project_root = '/' . trim($project_root, '/');
+}
 
 // Get the protocol (http or https)
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
